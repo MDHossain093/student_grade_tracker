@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AppTheme {
-  static final ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
-      brightness: Brightness.light,
-    ),
-    useMaterial3: true,
-  );
+import 'providers/navigation_provider.dart';
+import 'providers/subject_provider.dart';
+import 'providers/theme_provider.dart';
+import 'screens/home_screen.dart';
+import 'themes/app_theme.dart';
 
-  static final ThemeData darkTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
-      brightness: Brightness.dark,
-    ),
-    useMaterial3: true,
-  );
+void main() {
+  runApp(const StudentGradeTrackerApp());
+}
+
+class StudentGradeTrackerApp extends StatelessWidget {
+  const StudentGradeTrackerApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SubjectProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => NavigationProvider()),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Student Grade Tracker',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+            home: const HomeScreen(),
+          );
+        },
+      ),
+    );
+  }
 }
