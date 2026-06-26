@@ -53,6 +53,20 @@ class _AddSubjectScreenState extends State<AddSubjectScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 20),
+            const Icon(
+              Icons.school,
+              size: 70,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Add New Subject',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 30),
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(
@@ -97,9 +111,10 @@ class _AddSubjectScreenState extends State<AddSubjectScreen> {
 
             const SizedBox(height: 24),
 
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: _addSubject,
-              child: const Text('Add Subject'),
+              icon: const Icon(Icons.add),
+              label: const Text('Add Subject'),
             ),
           ],
         ),

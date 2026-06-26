@@ -22,7 +22,12 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student Grade Tracker'),
+        title: const Text(
+          'Student Grade Tracker',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -39,22 +44,25 @@ class HomeScreen extends StatelessWidget {
 
       body: screens[navigationProvider.currentIndex],
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: navigationProvider.currentIndex,
-        onTap: (index) {
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: navigationProvider.currentIndex,
+        onDestinationSelected: (index) {
           context.read<NavigationProvider>().changeIndex(index);
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.add_circle_outline),
+            selectedIcon: Icon(Icons.add_circle),
             label: 'Add',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+          NavigationDestination(
+            icon: Icon(Icons.menu_book_outlined),
+            selectedIcon: Icon(Icons.menu_book),
             label: 'Subjects',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
+          NavigationDestination(
+            icon: Icon(Icons.analytics_outlined),
+            selectedIcon: Icon(Icons.analytics),
             label: 'Summary',
           ),
         ],

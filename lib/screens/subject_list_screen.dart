@@ -11,9 +11,20 @@ class SubjectListScreen extends StatelessWidget {
     final subjectProvider = context.watch<SubjectProvider>();
 
     if (subjectProvider.subjects.isEmpty) {
-      return const Center(
-        child: Text(
-          'No subjects added yet.',
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.menu_book,
+              size: 90,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'No Subjects Added Yet',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
         ),
       );
     }
@@ -47,13 +58,18 @@ class SubjectListScreen extends StatelessWidget {
           ),
           child: Card(
             child: ListTile(
-              title: Text(subject.name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Mark: ${subject.mark}'),
-                  Text('Grade: ${subject.grade}'),
-                ],
+              leading: CircleAvatar(
+                child: Text(subject.grade),
+              ),
+              title: Text(
+                subject.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text('Mark: ${subject.mark}'),
+              trailing: Chip(
+                label: Text(subject.grade),
               ),
             ),
           ),
